@@ -1,6 +1,6 @@
 <template>
     <div class="box">
-        <div class="top">手机号登录</div>
+        <div class="topp">手机号登录</div>
         <div class="inp">
             <input type="text" @change='inps' placeholder="手机号">
         </div>
@@ -31,12 +31,14 @@ export default {
            this.num=e.target.value
         },
         chose(){
-            if(this.val!='123456'){
+            if(this.val!='1'){
                 this.tips='手机号错误'
-            }else if(this.num!='12345'){
+            }else if(this.num!='1'){
                 this.tips='密码错误'
             }else{
                 this.tips='登录成功'
+                this.$router.push('/sign')
+                
             }
         }
     }
@@ -51,8 +53,9 @@ export default {
    .box{
        width: 100%;
        height: 100%;
+       overflow: hidden;
    }
-   .top{
+   .topp{
        width: 100%;
        height: 30px;
        line-height: 30px;
@@ -69,6 +72,7 @@ export default {
        width: 100%;
        height: 100%;
        border-bottom: 1px #ccc solid;
+       box-sizing: border-box;
    }
    .pasa{
         width: 100%;
@@ -88,7 +92,6 @@ export default {
        background: #666;
        text-align: center;
        line-height: 35px;
-      
        border-radius: 10px;
    }
 </style>
