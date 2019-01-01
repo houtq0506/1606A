@@ -35,7 +35,7 @@
 
 <script>
 import 'swiper/dist/css/swiper.css'
- import Swiper from 'swiper';
+import Swiper from 'swiper';
 export default  {
     name:'Self',
     mounted(){

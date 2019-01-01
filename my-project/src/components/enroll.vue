@@ -1,14 +1,17 @@
 <template>
     <div class="box">
-        <div class="topp">手机号登录</div>
-        <div class="inp">
-            <input type="text" @change='inps' placeholder="手机号">
+            <div class="box">
+                <div class="topp">手机号登录</div>
+            <div class="inp">
+                <input type="text" @change='inps' placeholder="手机号">
+            </div>
+            <div class="pasa">
+                <input type="text" @change='pas' placeholder="密码">
+            </div>
+            <p style="color:red;height:40px;line-height:40px;">{{tips}}</p>
+            <button @click='chose'>登录</button>
         </div>
-        <div class="pasa">
-            <input type="text" @change='pas' placeholder="密码">
-        </div>
-        <p style="color:red;height:40px;line-height:40px;">{{tips}}</p>
-        <button @click='chose'>登录</button>
+       <router-link to="/">nihao</router-link>
         
     </div>
 </template>
@@ -37,8 +40,8 @@ export default {
                 this.tips='密码错误'
             }else{
                 this.tips='登录成功'
-                this.$router.push('/sign')
-                
+                this.$router.push('/firstpage')
+                //console.log(this.$router,'sdff')
             }
         }
     }

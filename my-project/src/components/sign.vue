@@ -79,8 +79,8 @@
            <i class="ph iconfont icon-PCbofangye_paihangbang"></i>
         </div>
         <div class="nav">
-            <router-link to='/sign/self' tag='div'>个性推荐</router-link>
-            <router-link to='/sign/anch' tag='div'>主播电台</router-link>
+            <router-link to='/firstpage/sign/self' tag='div'>个性推荐</router-link>
+            <router-link to='/firstpage/sign/anch' tag='div'>主播电台</router-link>
         </div>
         <router-view></router-view>
     </div>
