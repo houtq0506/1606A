@@ -18,7 +18,7 @@ export default {
     login(){
       JSBridge.invoke('app','login',{
         loginCallBackName:(res)=>{
-          console.log('res...',res)
+          //console.log('res...',res)
         }
       })
     }

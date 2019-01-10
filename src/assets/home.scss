@@ -1,0 +1,13 @@
+@import "common.scss";
+@import "_mixin.scss";
+.wrap {
+    @include num(100%, 100%);
+    background: red;
+}
+
+@media screen and (min-width: 768px) {
+    .wrap {
+        @include num(100%, 100%);
+        background: blue;
+    }
+}

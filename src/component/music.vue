@@ -28,18 +28,19 @@
             </div>
         </div>
         <section>
-            <div class="serves">
+            <div class="serves" @click='chanedt'>
                 <span>服务类型</span>
-                <p><span>换驾照</span><span class="icfg">></span></p>
+                <p><span>{{form}}</span><span class="icfg">></span></p>
             </div>
-            <div class="serves">
+            <citypicker></citypicker>
+            <!-- <div class="serves" @click='citys'>
                 <span>当前驾照签发城市</span>
                 <p><span>请选择签发地</span></p>
             </div>
             <div class="serves">
                 <span>可换补的签发城市</span>
                 <p><span>请选择补换地</span></p>
-            </div>
+            </div> -->
             <div class="serves bords">
                 <span>服务费</span>
                 <p><span class="bg">￥399</span></p>
@@ -50,29 +51,66 @@
             </div>
             <div class="takes">
                 <p>常见问题</p>
-                <div class="tp"><img src="//www.runoob.com/wp-content/uploads/2016/02/0FBC219D-EFF6-4F0D-BB9D-2A97BD177770.jpg" alt=""></div>
+                <div class="tp" @click='qiuqiu'><img src="//www.runoob.com/wp-content/uploads/2016/02/0FBC219D-EFF6-4F0D-BB9D-2A97BD177770.jpg" alt=""></div>
             </div>
         </section>
         <footer>
             <p>实付:<span>￥399</span></p>
-            <button>立即支付</button>
+            <button @click="clicks">立即支付</button>
         </footer>
+        <div v-show='kf'>
+               <van-popup v-model="kf" class="bottoms">
+                   <button id="cc">跳转客服</button>
+                   <!-- <a href="mailto:342690199@qq.com">打电话</a> -->
+                   <a href="tel:17796925820"></a>
+               </van-popup>
+        </div>
+        <div v-show="show">
+            <van-popup position='bottom' v-model="show" overlay>
+                <van-picker @confirm='confirms' @cancel='onCancal' show-toolbar :columns="columns"/>
+           </van-popup>
+        </div>
     </div>
 </template>
 
 <script>
-import {uploadImg} from '@/api/index'
+import {uploadImg,goPay,isVip} from '@/api/index'
+import Citypicker from '../component/citypicker'
 import {mapState,mapMutations} from 'vuex' 
 import add from '../assets/add.png'
 export default {
     name:'music',
+    components:{
+        Citypicker
+    },
     data(){
         return {
             currt:{},
-            info:false
+            info:false,
+            form:'',
+            show:false,
+            columns:['补驾照','换驾照'],
+            val:'',
+            kf:false
         }
     },
     methods:{
+        qiuqiu(){
+           this.kf=true
+        },
+        onCan(){
+            this.kf=false
+        },
+        onCancal(e){
+            this.show=false
+        },
+        confirms(value){
+            this.form=value
+            this.onCancal()
+        },
+        chanedt(){
+            this.show=true
+        },
          ...mapMutations({
             updatelist:'music/updatelist'
         }),
@@ -84,6 +122,9 @@ export default {
         cancel(){
             this.info=false
         },
+        clicks(){
+            goPay()
+        },
         async btn(type){
             let res = await uploadImg(type)
             let index=this.list.findIndex(item=>item==this.currt)
@@ -94,6 +135,11 @@ export default {
             })
         }
     },
+    // mounted(){
+    //    isVip().then(res=>{
+    //        console.log(res,'res')
+    //    })
+    // },
     computed:{
         ...mapState({
             list:state=>state.upload.list
@@ -101,9 +147,6 @@ export default {
         addimg(){
            return add
         }
-    },
-    mounted(){
-        console.log(this.$store)
     }
 }
 </script>
@@ -113,6 +156,23 @@ export default {
     padding: 0 ;
     margin: 0;
     list-style: none;
+}
+.bottoms{
+    position: fixed;
+    bottom:0;
+    width: 90%;
+    height: 150px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    align-items: center;
+}
+.bottoms>a,.bottoms>button{
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
 }
 .mark{
     position: fixed;
